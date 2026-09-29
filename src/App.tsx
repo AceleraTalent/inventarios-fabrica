@@ -1,3 +1,4 @@
+import { Loader2 } from "lucide-react"
 import { Toaster } from "sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Sidebar } from "@/components/layout/Sidebar"
@@ -28,7 +29,7 @@ const PAGES: Record<Page, () => JSX.Element> = {
 }
 
 function Shell() {
-  const { page } = useInventory()
+  const { page, connection } = useInventory()
   const Current = PAGES[page]
   return (
     <div className="min-h-screen">
@@ -36,7 +37,14 @@ function Shell() {
       <div className="lg:pl-[256px]">
         <Header />
         <main key={page} className="mx-auto max-w-[1440px] px-4 py-8 animate-in fade-in duration-300 sm:px-6 lg:px-8">
-          <Current />
+          {connection === "loading" ? (
+            <div className="flex h-[60vh] flex-col items-center justify-center gap-3 text-sm text-muted-foreground">
+              <Loader2 className="h-6 w-6 animate-spin text-primary" />
+              Cargando inventario…
+            </div>
+          ) : (
+            <Current />
+          )}
         </main>
       </div>
       <StageDrawer />

@@ -14,7 +14,9 @@ export function FactoryPage() {
   const [values, setValues] = useState<Record<string, number>>({})
 
   const reset = () => setValues(Object.fromEntries(products.map((p) => [p.id, p.weekProduction])))
-  useEffect(reset, [products]) // eslint-disable-line react-hooks/exhaustive-deps
+  // Solo reinicia los inputs cuando cambia la producción guardada (no en cada sincronización)
+  const savedKey = products.map((p) => `${p.id}:${p.weekProduction}`).join(",")
+  useEffect(reset, [savedKey]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const total = products.reduce((a, p) => a + (values[p.id] ?? 0), 0)
   const prevTotal = products.reduce((a, p) => a + p.prevWeek, 0)

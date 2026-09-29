@@ -3,7 +3,6 @@ import { ArrowRight, Factory, ShoppingBag } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet"
 import { ProductThumb, SkuTag, STAGES, StatusBadge } from "@/components/shared"
-import { productHistory } from "@/data/mock"
 import { cn, formatMoney, formatNumber, marginPct } from "@/lib/utils"
 import { useInventory } from "@/store/inventory"
 import type { Stage } from "@/data/types"
@@ -81,8 +80,8 @@ export function ProductDrawer() {
               <section>
                 <p className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Historial reciente</p>
                 <ol className="relative ml-1.5 space-y-5 border-l border-dashed border-border pl-6">
-                  {[...history.filter((h) => h.productId === product.id), ...productHistory(product)].map((h, i) => (
-                    <li key={i} className="relative">
+                  {history.filter((h) => h.productId === product.id).slice(0, 8).map((h) => (
+                    <li key={h.id} className="relative">
                       <span className={cn("absolute -left-[31px] top-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full ring-4 ring-white", TONE[h.tone])}>
                         <span className="h-1.5 w-1.5 rounded-full bg-current" />
                       </span>

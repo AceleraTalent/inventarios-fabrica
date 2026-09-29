@@ -5,9 +5,10 @@ import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { SidebarNav } from "./Sidebar"
 import { useInventory } from "@/store/inventory"
+import { cn } from "@/lib/utils"
 
 export function Header() {
-  const { openModal, products, stockStatus } = useInventory()
+  const { openModal, products, stockStatus, connection } = useInventory()
   const [menu, setMenu] = useState(false)
   const alerts = products.filter((p) => stockStatus(p) !== "normal").length
 
@@ -39,6 +40,26 @@ export function Header() {
           </Button>
 
           <div className="mx-1 hidden h-6 w-px bg-border sm:block" />
+
+          {connection !== "loading" && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className={cn(
+                  "hidden items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold md:inline-flex",
+                  connection === "online" ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-700"
+                )}>
+                  <span className="relative flex h-2 w-2">
+                    {connection === "online" && <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />}
+                    <span className={cn("relative inline-flex h-2 w-2 rounded-full", connection === "online" ? "bg-emerald-500" : "bg-amber-500")} />
+                  </span>
+                  {connection === "online" ? "En vivo" : "Modo local"}
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>
+                {connection === "online" ? "Conectado a la base de datos · se actualiza cada 4 s" : "Sin conexión a la base de datos · datos de ejemplo"}
+              </TooltipContent>
+            </Tooltip>
+          )}
 
           <Tooltip>
             <TooltipTrigger asChild>
