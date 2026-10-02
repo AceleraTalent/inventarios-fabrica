@@ -15,6 +15,7 @@ import { SalesPage } from "@/pages/Sales"
 import { ProductsPage } from "@/pages/Products"
 import { ReportsPage } from "@/pages/Reports"
 import { SettingsPage } from "@/pages/Settings"
+import { DemandPlanningPage } from "@/pages/DemandPlanning"
 import type { Page } from "@/data/types"
 
 const PAGES: Record<Page, () => JSX.Element> = {
@@ -23,6 +24,7 @@ const PAGES: Record<Page, () => JSX.Element> = {
   store: StorePage,
   transit: TransitPage,
   sales: SalesPage,
+  demand: DemandPlanningPage,
   products: ProductsPage,
   reports: ReportsPage,
   settings: SettingsPage,

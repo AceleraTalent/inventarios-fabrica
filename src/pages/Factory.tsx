@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { ArrowDownRight, ArrowUpRight, Boxes, CalendarDays, Factory as FactoryIcon, History, Save } from "lucide-react"
+import { ArrowDownRight, ArrowUpRight, Boxes, CalendarDays, Cog, Factory as FactoryIcon, History, Save } from "lucide-react"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -8,8 +8,35 @@ import { MetricCard, PageHeader, ProductCell, SkuTag } from "@/components/shared
 import { CURRENT_WEEK } from "@/data/mock"
 import { cn, formatNumber } from "@/lib/utils"
 import { useInventory } from "@/store/inventory"
+import { MachinesPage } from "@/pages/Machines"
 
 export function FactoryPage() {
+  const [view, setView] = useState<"factory" | "machines">("factory")
+
+  return (
+    <>
+      <div className="mb-6 inline-flex rounded-xl border border-border/70 bg-white p-1 shadow-soft" aria-label="Secciones de fábrica">
+        <button
+          type="button"
+          onClick={() => setView("factory")}
+          className={cn("flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition", view === "factory" ? "bg-primary-soft text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground")}
+        >
+          <FactoryIcon className="h-4 w-4" /> Fábrica
+        </button>
+        <button
+          type="button"
+          onClick={() => setView("machines")}
+          className={cn("flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition", view === "machines" ? "bg-primary-soft text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground")}
+        >
+          <Cog className="h-4 w-4" /> Máquinas
+        </button>
+      </div>
+      {view === "factory" ? <FactoryProduction /> : <MachinesPage />}
+    </>
+  )
+}
+
+function FactoryProduction() {
   const { products, saveWeeklyProduction } = useInventory()
   const [values, setValues] = useState<Record<string, number>>({})
 

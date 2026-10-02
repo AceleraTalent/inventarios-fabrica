@@ -41,4 +41,4 @@ export type Stage = "factory" | "transit" | "store" | "sold"
 
 export type StockStatus = "normal" | "low" | "out"
 
-export type Page = "dashboard" | "factory" | "store" | "transit" | "sales" | "products" | "reports" | "settings"
+export type Page = "dashboard" | "factory" | "store" | "transit" | "sales" | "demand" | "products" | "reports" | "settings"

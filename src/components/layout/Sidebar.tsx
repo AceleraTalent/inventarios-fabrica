@@ -1,4 +1,4 @@
-import { BarChart3, Factory, LayoutDashboard, Package, Receipt, Settings, Store, Truck, type LucideIcon } from "lucide-react"
+import { BarChart3, CalendarRange, Factory, LayoutDashboard, Package, Receipt, Settings, Store, Truck, type LucideIcon } from "lucide-react"
 import { useInventory } from "@/store/inventory"
 import type { Page } from "@/data/types"
 import { cn } from "@/lib/utils"
@@ -8,6 +8,7 @@ const NAV: { section?: string; items: Item[] }[] = [
   { items: [{ page: "dashboard", label: "Dashboard", icon: LayoutDashboard }] },
   { section: "Inventario", items: [{ page: "factory", label: "Fábrica", icon: Factory }, { page: "store", label: "Tienda", icon: Store }] },
   { section: "Movimientos", items: [{ page: "transit", label: "En tránsito", icon: Truck }, { page: "sales", label: "Ventas", icon: Receipt }] },
+  { section: "Planificación", items: [{ page: "demand", label: "Planeación de demanda", icon: CalendarRange }] },
   { section: "Catálogo", items: [{ page: "products", label: "Productos", icon: Package }, { page: "reports", label: "Reportes", icon: BarChart3 }, { page: "settings", label: "Configuración", icon: Settings }] },
 ]
 
